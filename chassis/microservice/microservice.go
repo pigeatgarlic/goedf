@@ -10,8 +10,6 @@ import (
 	"github.com/pigeatgarlic/goedf/chassis/microservice/endpoint"
 	nopendpoint "github.com/pigeatgarlic/goedf/chassis/microservice/endpoint/nop"
 	eventhandler "github.com/pigeatgarlic/goedf/chassis/microservice/event-handler"
-	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
-	controlinstruction "github.com/pigeatgarlic/goedf/chassis/microservice/instruction/control"
 	"github.com/pigeatgarlic/goedf/chassis/microservice/middleware"
 	"github.com/pigeatgarlic/goedf/chassis/microservice/middleware/control"
 	"github.com/pigeatgarlic/goedf/chassis/microservice/middleware/exception-catching"
@@ -30,7 +28,6 @@ type MicroService struct {
 	Tags map[string]string `json:"Tags"`
 
 	endpoints    []*endpoint.Endpoint
-	instructions []*instruction.InstructionSet
 	middlewares  map[int]*middleware.Middleware
 
 	handler *eventhandler.EventHandler
@@ -45,21 +42,6 @@ func InitMicroService(log logger.Logger,
 	var ret MicroService
 	ret.middlewares = make(map[int]*middleware.Middleware)
 
-	nopEndpoint := nopendpoint.NewNopEndpoint()
-	controlInstructionSet := controlinstruction.InitControlInstruction(ret.handler)
-
-	controlMiddleware := control.InitControlMiddleware(controlInstructionSet)
-	loggerMiddleware := loggermiddleware.InitLoggerMiddleware(log)
-	exceptionMiddleware := exception.InitExceptionMiddleware(log)
-
-	ret.AddInstructionSet(controlInstructionSet)
-
-	ret.AddMiddleware(controlMiddleware)
-	ret.AddMiddleware(loggerMiddleware)
-	ret.AddMiddleware(exceptionMiddleware)
-
-	ret.AddEndpoint(nopEndpoint)
-
 	var querier eventquerier.EventListener
 	var pusher eventpusher.EventSpeaker
 	switch mq.GetProvider() {
@@ -70,7 +52,20 @@ func InitMicroService(log logger.Logger,
 	case "rabbitmq":
 	case "nats":
 	}
+
 	ret.handler, err = eventhandler.InitEventHandler(log, querier, pusher)
+
+	controlMiddleware := control.InitControlMiddleware(ret.handler)
+	loggerMiddleware := loggermiddleware.InitLoggerMiddleware(log)
+	exceptionMiddleware := exception.InitExceptionMiddleware(log)
+
+	ret.AddMiddleware(controlMiddleware)
+	ret.AddMiddleware(loggerMiddleware)
+	ret.AddMiddleware(exceptionMiddleware)
+
+	nopEndpoint := nopendpoint.NewNopEndpoint()
+	ret.AddEndpoint(nopEndpoint)
+
 	return &ret, err
 }
 
@@ -148,7 +143,3 @@ func (service *MicroService) AddEndpoint(endpoint *endpoint.Endpoint) *MicroServ
 	return service
 }
 
-func (service *MicroService) AddInstructionSet(instruction *instruction.InstructionSet) *MicroService {
-	service.instructions = append(service.instructions, instruction)
-	return service
-}

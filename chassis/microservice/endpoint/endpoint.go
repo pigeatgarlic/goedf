@@ -1,6 +1,8 @@
 package endpoint
 
 import (
+	"fmt"
+
 	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
 	"github.com/pigeatgarlic/goedf/models/event"
 )
@@ -10,52 +12,39 @@ type Endpoint struct {
 	Name string
 	Tags map[string]string
 
-	handler         EndpointFunction
-	instructionSets map[string]*instruction.InstructionSet
-
-	steps map[int]step
+	finalHandler 	EndpointFunction
 }
 
-type step struct {
-	InstructionSetName string
-	InstructionName    string
-}
 
 type EndpointFunction func(event *event.Event) error
 
 func InitEndpoint(name string,
-	tag map[string]string,
-	instructions map[string]*instruction.InstructionSet) *Endpoint {
-	return &Endpoint{
+				  tag map[string]string,
+				  handler instruction.Instruction) *Endpoint {
+	endpoint := Endpoint{
 		Name:            name,
 		Tags:            tag,
-		instructionSets: instructions,
-		steps:           make(map[int]step),
+	}
+	endpoint.finalHandler = endpoint.describeEndpointFunction(handler);
+	return &endpoint;
+}
+
+
+func (endpoint *Endpoint) describeEndpointFunction(ins instruction.Instruction) EndpointFunction{
+	return func(event *event.Event) error {
+		err := ins( &event.PreviousAction().Result,
+					&event.CurrentAction().Result,
+					 event.ID,
+					 event.Headers)
+
+		current_action := event.CurrentAction()
+		current_action.SignedAuthority = append(current_action.SignedAuthority, fmt.Sprintf("Endpoint %s", endpoint.Name))
+
+		return err
 	}
 }
 
-func (endpoint *Endpoint) describeEndpointFunction(steps map[int]step) {
-	endpoint.handler = func(event *event.Event) error {
-		for i := 0; i < len(steps); i++ {
-			err := endpoint.instructionSets[steps[i].InstructionSetName].InvokeFunction(steps[i].InstructionName, event)
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	}
-}
-
-func (endpoint *Endpoint) AddStep(instructionName string, instructionSetName string) *Endpoint {
-	new_step := step{
-		InstructionSetName: instructionSetName,
-		InstructionName:    instructionName,
-	}
-	endpoint.steps[len(endpoint.steps)] = new_step
-	endpoint.describeEndpointFunction(endpoint.steps)
-	return endpoint
-}
 
 func (endpoint *Endpoint) GetEndpointHandler() EndpointFunction {
-	return endpoint.handler
+	return endpoint.finalHandler
 }

@@ -9,35 +9,20 @@ import (
 	"github.com/pigeatgarlic/goedf/models/microservice"
 )
 
-const (
-	Filter = "Filter"
-)
 
-func InitControlInstruction(handler *eventhandler.EventHandler) *instruction.InstructionSet {
-	ret := instruction.InitInstruction("Control", map[string]string{
-		"Author": "Pigeatgarlic",
-	},
-	)
-
-	ret.Tags["Author"] = "Pigeatgarlic"
-
-	ret.DescribeInstruction(Filter, func(prev *event.Result, current *event.Result, ID int, Headers map[string]string) error {
+func InitControlInstruction(handler *eventhandler.EventHandler) instruction.Instruction{
+	return func(prev *event.Result, current *event.Result, ID int, Headers map[string]string) error {
 		switch Headers["ControlEvent"] {
 		case "UpdateGrid":
-			var config map[int]string
+			var config []microservice.MicroserviceListenerConfig
 			json.Unmarshal([]byte(prev.Data["Service"]), &config)
-
 			handler.ConfigTopic(config)
-
 			current.Data["Service"] = prev.Data["Service"]
 		case "NewService":
 			var svc microservice.MicroService
 			json.Unmarshal([]byte(prev.Data["Service"]), &svc)
-
 			current.Data["Service"] = prev.Data["Service"]
 		}
 		return nil
-	})
-
-	return ret
+	}
 }
