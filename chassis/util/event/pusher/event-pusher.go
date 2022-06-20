@@ -1,8 +1,8 @@
 package eventpusher
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/microservice"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/microservice"
 )
 
 type EventSpeaker interface {

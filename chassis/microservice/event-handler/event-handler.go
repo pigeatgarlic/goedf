@@ -1,11 +1,11 @@
 package eventhandler
 
 import (
-	eventpusher "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/pusher"
-	eventquerier "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/querier"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/microservice"
+	eventpusher "github.com/pigeatgarlic/goedf/chassis/util/event/pusher"
+	eventquerier "github.com/pigeatgarlic/goedf/chassis/util/event/querier"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/microservice"
 )
 
 type EventHandler struct {

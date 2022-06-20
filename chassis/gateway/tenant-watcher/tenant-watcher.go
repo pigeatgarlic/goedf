@@ -7,13 +7,13 @@ import (
 	"math/rand"
 	"net"
 
-	authenticator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/auth"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/tenant"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/protoc"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/request"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	authenticator "github.com/pigeatgarlic/goedf/chassis/gateway/module/auth"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/tenant"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/request-response/protoc"
+	"github.com/pigeatgarlic/goedf/models/request-response/request"
+	"github.com/pigeatgarlic/goedf/models/user"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 )
@@ -73,9 +73,9 @@ func (watcher *TenantWatcher) StreamRequest(client protoc.StreamService_StreamRe
 
 	go func() {
 		for {
-			response := new.ListenonResponse();
-			transresp := response.ProtocTranslate();
-			client.Send(&transresp);
+			response := new.ListenonResponse()
+			transresp := response.ProtocTranslate()
+			client.Send(&transresp)
 		}
 	}()
 

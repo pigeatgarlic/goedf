@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	"github.com/pigeatgarlic/goedf/models/user"
 )
 
 type Feature struct {
@@ -15,7 +15,7 @@ type Feature struct {
 	Authority string
 
 	EndpointIDs []int
-	Allowed []user.Role
+	Allowed     []user.Role
 }
 
 type CronJob struct {
@@ -46,30 +46,29 @@ type Trigger struct {
 	Tags map[string]string
 
 	Command string
-	Feature Feature 
-	Role user.Role
+	Feature Feature
+	Role    user.Role
 	Service MicroService
 }
 
-
-type ActionSerires map[int]*struct{
-	EndpointID int
+type ActionSerires map[int]*struct {
+	EndpointID     int
 	MicroserviceID int
 }
 
-func (action ActionSerires) Add (endpoint Endpoint) error {
+func (action ActionSerires) Add(endpoint Endpoint) error {
 	action[endpoint.Order] = &struct {
-		EndpointID int;
-		MicroserviceID int;
-	} {
-		EndpointID: endpoint.ID,
-		MicroserviceID : endpoint.MicroserviceID,
+		EndpointID     int
+		MicroserviceID int
+	}{
+		EndpointID:     endpoint.ID,
+		MicroserviceID: endpoint.MicroserviceID,
 	}
 
 	for i := 0; i < len(action); i++ {
 		if action[i] == nil {
-			return fmt.Errorf("invalid action, missing %dth action",i)
+			return fmt.Errorf("invalid action, missing %dth action", i)
 		}
 	}
-	return nil;
+	return nil
 }

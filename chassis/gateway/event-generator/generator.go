@@ -1,13 +1,13 @@
 package eventgenerator
 
 import (
-	eventpusher "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/pusher"
+	eventpusher "github.com/pigeatgarlic/goedf/chassis/util/event/pusher"
 
-	eventtranslator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/event-generator/event-translator"
-	registrator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator"
+	eventtranslator "github.com/pigeatgarlic/goedf/chassis/gateway/event-generator/event-translator"
+	registrator "github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/request"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/request-response/request"
 )
 
 type EventGenerator struct {

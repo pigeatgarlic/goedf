@@ -1,9 +1,9 @@
 package authenticator
 
 import (
-	usermodel "github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	usermodel "github.com/pigeatgarlic/goedf/models/user"
 )
 
 type Adapter interface {
-	ValidateUserRole(user *usermodel.User, role string) bool 
+	ValidateUserRole(user *usermodel.User, role string) bool
 }

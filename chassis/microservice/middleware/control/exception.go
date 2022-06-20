@@ -1,11 +1,11 @@
 package control
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/endpoint"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/middleware"
-	controlins "github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction/control"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/endpoint"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	controlins "github.com/pigeatgarlic/goedf/chassis/microservice/instruction/control"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/middleware"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
 
 const (

@@ -1,12 +1,12 @@
 package loggermiddleware
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/endpoint"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	loggerinstrcution "github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/middleware"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/endpoint"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	loggerinstrcution "github.com/pigeatgarlic/goedf/chassis/microservice/instruction/logger"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/middleware"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
 
 func InitLoggerMiddleware(log logger.Logger) *middleware.Middleware {

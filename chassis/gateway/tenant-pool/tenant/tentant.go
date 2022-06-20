@@ -1,12 +1,12 @@
 package tenant
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/response"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	"github.com/pigeatgarlic/goedf/models/request-response/response"
+	"github.com/pigeatgarlic/goedf/models/user"
 )
 
 type Tenant struct {
-	UserID	  int
+	UserID    int
 	SessionID uint64
 
 	Name  string
@@ -18,23 +18,22 @@ type Tenant struct {
 
 func NewTenant(ID uint64, user *user.User) *Tenant {
 	return &Tenant{
-		UserID: user.ID,
+		UserID:    user.ID,
 		SessionID: ID,
 
-		Name: user.UserName,
+		Name:  user.UserName,
 		Roles: user.Roles,
 
 		channel: make(chan *response.UserResponse),
 	}
 }
 
-
-func (tenant *Tenant)SendResponse(resp *response.UserResponse) {
-	tenant.channel <- resp;
+func (tenant *Tenant) SendResponse(resp *response.UserResponse) {
+	tenant.channel <- resp
 }
-func (tenant *Tenant)ListenonResponse() (resp *response.UserResponse) {
-	return <-tenant.channel;
+func (tenant *Tenant) ListenonResponse() (resp *response.UserResponse) {
+	return <-tenant.channel
 }
-func (tenant *Tenant)Terminate(){
+func (tenant *Tenant) Terminate() {
 	close(tenant.channel)
 }

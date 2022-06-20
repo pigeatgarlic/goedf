@@ -1,10 +1,10 @@
 package broadcast
 
 import (
-	redispubsub "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/broadcast/redis"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/response"
+	redispubsub "github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/broadcast/redis"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/request-response/response"
 )
 
 type PubSubProvider interface {

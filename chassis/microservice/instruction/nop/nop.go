@@ -1,8 +1,8 @@
 package nop
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
 
 const (
@@ -10,12 +10,12 @@ const (
 )
 
 func InitNopInstruction() *instruction.InstructionSet {
-	ret := instruction.InitInstruction(NOP,map[string]string{
+	ret := instruction.InitInstruction(NOP, map[string]string{
 		"Author": "Pigeatgarlic",
 	})
-	ret.DescribeInstruction(NOP, func(prev *event.Result, current *event.Result, ID int, Headers map[string]string) (error) {
-		return nil;
+	ret.DescribeInstruction(NOP, func(prev *event.Result, current *event.Result, ID int, Headers map[string]string) error {
+		return nil
 	})
 
-	return ret;
+	return ret
 }

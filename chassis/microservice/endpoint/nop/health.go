@@ -1,9 +1,9 @@
 package nop
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/endpoint"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction/nop"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/endpoint"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction/nop"
 )
 
 const (

@@ -11,9 +11,8 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
 )
-
 
 type inforMessage struct {
 	Message   string
@@ -36,8 +35,6 @@ type errorMessage struct {
 	Server     string
 	Namespace  string
 }
-
-
 
 type EsLogger struct {
 	config     *config.ESLogConfig
@@ -69,7 +66,7 @@ func InitLogger(config *config.ESLogConfig) (*EsLogger, error) {
 	logger.elasticLog = true
 
 	logger.httpClient = http.Client{Timeout: 1 * time.Second}
-	logger.config = config;
+	logger.config = config
 
 	resp, err := http.Get(logger.config.ESurl)
 	if err != nil || resp.StatusCode != 200 {
@@ -101,8 +98,8 @@ func (logger *EsLogger) pushLog(data []byte, index string) {
 	// }
 
 	body := bytes.NewBuffer(data)
-	resp, err := logger.httpClient.Post(fmt.Sprintf("%s/%s/_doc",logger.config.ESurl,index), "application/json", body);
-	if  err != nil {
+	resp, err := logger.httpClient.Post(fmt.Sprintf("%s/%s/_doc", logger.config.ESurl, index), "application/json", body)
+	if err != nil {
 		fmt.Println("Failed to push log to elasicsearch, error: ", err)
 	}
 
@@ -122,7 +119,7 @@ func (logger *EsLogger) Fatal(format string) {
 	message.Namespace = logger.config.Namespace
 	message.Server = logger.config.HostName
 
-	fmt.Printf("%s  %s  %s\n",message.Time,message.Message,message.StackTrace);
+	fmt.Printf("%s  %s  %s\n", message.Time, message.Message, message.StackTrace)
 
 	data, _ := json.Marshal(message)
 	go logger.pushLog(data, logger.config.ErrorIndex)
@@ -136,7 +133,7 @@ func (logger *EsLogger) Debug(format string) {
 	message.Namespace = logger.config.Namespace
 	message.Server = logger.config.HostName
 
-	fmt.Printf("%v  %s\n",message.Time,message.Message);
+	fmt.Printf("%v  %s\n", message.Time, message.Message)
 
 	data, _ := json.Marshal(message)
 	go logger.pushLog(data, logger.config.InforIndex)
@@ -150,7 +147,7 @@ func (logger *EsLogger) Error(format string) {
 	message.Namespace = logger.config.Namespace
 	message.Server = logger.config.HostName
 
-	fmt.Printf("%s  %s  %s\n",message.Time,message.Message,message.StackTrace);
+	fmt.Printf("%s  %s  %s\n", message.Time, message.Message, message.StackTrace)
 
 	data, _ := json.Marshal(message)
 	go logger.pushLog(data, logger.config.ErrorIndex)
@@ -162,8 +159,8 @@ func (logger *EsLogger) Warning(format string) {
 	message.Time = time.Now()
 	message.Namespace = logger.config.Namespace
 	message.Server = logger.config.HostName
-	
-	fmt.Printf("%v  %s\n",message.Time,message.Message);
+
+	fmt.Printf("%v  %s\n", message.Time, message.Message)
 
 	data, _ := json.Marshal(message)
 	go logger.pushLog(data, logger.config.WarningIndex)
@@ -176,43 +173,40 @@ func (logger *EsLogger) Infor(format string) {
 	message.Namespace = logger.config.Namespace
 	message.Server = logger.config.HostName
 
-	fmt.Printf("%v  %s\n",message.Time,message.Message);
+	fmt.Printf("%v  %s\n", message.Time, message.Message)
 
 	data, _ := json.Marshal(message)
 	go logger.pushLog(data, logger.config.InforIndex)
 }
 
-
-
-func (logger *EsLogger)	Find(index string, format string, start *string, end *string) []byte {
-	var body []byte;
+func (logger *EsLogger) Find(index string, format string, start *string, end *string) []byte {
+	var body []byte
 
 	if start == nil && end == nil {
 		query_string := fmt.Sprintf(
-		`{
+			`{
 			"query": {
 				"term" : {
 					"Message" : "%s"
 				}
 			}
-		}`,format);
+		}`, format)
 
-		body = []byte(query_string);
+		body = []byte(query_string)
 	}
 
-
-	logger.Debug(fmt.Sprintf("Finding %s keyword on index name %s",format,index));
-	resp, err := logger.httpClient.Post(fmt.Sprintf("%s/%s/_search",logger.config.ESurl,index), "application/json", bytes.NewBuffer(body))
+	logger.Debug(fmt.Sprintf("Finding %s keyword on index name %s", format, index))
+	resp, err := logger.httpClient.Post(fmt.Sprintf("%s/%s/_search", logger.config.ESurl, index), "application/json", bytes.NewBuffer(body))
 	if err != nil {
-		logger.Error("Post to elasicsearch, error: "+ err.Error())
+		logger.Error("Post to elasicsearch, error: " + err.Error())
 		return nil
 	}
 
-	resp_data,err := io.ReadAll(resp.Body)
+	resp_data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logger.Error(err.Error())
 		return nil
 	}
 
-	return resp_data;
+	return resp_data
 }

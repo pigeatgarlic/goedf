@@ -1,11 +1,11 @@
 package eventquerier
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/microservice"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/microservice"
 )
 
 type EventListener interface {
-	ConfigureTopic(topic microservice.MicroserviceListenerConfig) 
+	ConfigureTopic(topic microservice.MicroserviceListenerConfig)
 	WaitIncomingEvent() *event.Event
 }

@@ -2,10 +2,8 @@ package event
 
 import (
 	proto "github.com/golang/protobuf/proto"
-	protoc "github.com/pigeatgarlic/ideacrawler/microservice/models/event/protobuf"
+	protoc "github.com/pigeatgarlic/goedf/models/event/protobuf"
 )
-
-
 
 func (from Event) ToProtobytes() ([]byte, error) {
 	event := protoc.Event{
@@ -56,14 +54,14 @@ func (from Action) protocTranslate() protoc.Action {
 
 		Done:            from.Done,
 		SignedAuthority: from.SignedAuthority,
-		Result: &result,
+		Result:          &result,
 	}
 }
 
 func (from Result) protocTranslate() protoc.Result {
 	return protoc.Result{
-		Error:     from.Error,
-		Data:      from.Data,
+		Error: from.Error,
+		Data:  from.Data,
 	}
 }
 
@@ -93,14 +91,14 @@ func actionReverseTranslate(from *protoc.Action) Action {
 
 		Done:            from.Done,
 		SignedAuthority: from.SignedAuthority,
-		Result: result,
+		Result:          result,
 	}
 }
 
 func resultReverseTranslate(from *protoc.Result) Result {
 	return Result{
-		Error:     from.Error,
-		Data:      from.Data,
+		Error: from.Error,
+		Data:  from.Data,
 	}
 
 }

@@ -3,13 +3,13 @@ package authenticator
 import (
 	"fmt"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/auth/authenticator"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/module/auth/authenticator"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	"github.com/pigeatgarlic/goedf/models/user"
 )
 
 type Authenticator struct {
-	config 	*config.SecurityConfig
+	config  *config.SecurityConfig
 	adapter Adapter
 }
 
@@ -21,8 +21,8 @@ type jwtClaim struct {
 
 func InitAuthenticator(config *config.SecurityConfig) *Authenticator {
 	return &Authenticator{
-		config: 	 config,
-		adapter:     authenticator.New(config),
+		config:  config,
+		adapter: authenticator.New(config),
 	}
 }
 

@@ -5,14 +5,14 @@ import (
 	"math/rand"
 	"time"
 
-	eventtranslator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/event-watcher/event-translator"
-	eventquerier "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/querier"
+	eventtranslator "github.com/pigeatgarlic/goedf/chassis/gateway/event-watcher/event-translator"
+	eventquerier "github.com/pigeatgarlic/goedf/chassis/util/event/querier"
 
-	registrator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/microservice"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/response"
+	registrator "github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/microservice"
+	"github.com/pigeatgarlic/goedf/models/request-response/response"
 )
 
 type EventWatcher struct {

@@ -3,11 +3,11 @@ package tenantpool
 import (
 	"fmt"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/broadcast"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/tenant"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/response"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/broadcast"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/tenant"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/request-response/response"
 )
 
 type TenantPool struct {
@@ -21,11 +21,11 @@ type TenantPool struct {
 
 func InitTenantPool(ps_config *config.PubsubConfig,
 	log logger.Logger) (*TenantPool, error) {
-	var ret TenantPool;
+	var ret TenantPool
 	var err error
 
-	ret.pool = make(map[uint64]*tenant.Tenant);
-	ret.logger = log;
+	ret.pool = make(map[uint64]*tenant.Tenant)
+	ret.logger = log
 	ret.broadcaster, err = broadcast.InitBroadcaster(ps_config, log)
 	if err != nil {
 		return nil, err
@@ -55,13 +55,13 @@ func (pool *TenantPool) SendResponse(resp *response.UserResponse) {
 	var destination *tenant.Tenant
 	if destination = pool.pool[resp.SessionID]; destination == nil {
 		go pool.broadcaster.Publish(resp)
-		return 
+		return
 	}
 	go destination.SendResponse(resp)
 }
 
 func (pool *TenantPool) KillTenant(ID uint64) {
-	pool.logger.Infor(fmt.Sprintf("Tenant %d exited from pool",ID))
+	pool.logger.Infor(fmt.Sprintf("Tenant %d exited from pool", ID))
 	tnt := pool.pool[ID]
 	tnt.Terminate()
 	pool.pool[ID] = nil

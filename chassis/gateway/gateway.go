@@ -7,23 +7,23 @@ import (
 	"os/signal"
 	"syscall"
 
-	eventgenerator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/event-generator"
-	eventwatcher "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/event-watcher"
-	helperendpoint "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/helper"
-	authenticator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/auth"
-	registrator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator/etcd"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator/redis"
-	tenantpool "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool"
-	tenantwatcher "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-watcher"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
+	eventgenerator "github.com/pigeatgarlic/goedf/chassis/gateway/event-generator"
+	eventwatcher "github.com/pigeatgarlic/goedf/chassis/gateway/event-watcher"
+	helperendpoint "github.com/pigeatgarlic/goedf/chassis/gateway/helper"
+	authenticator "github.com/pigeatgarlic/goedf/chassis/gateway/module/auth"
+	registrator "github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator/etcd"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator/redis"
+	tenantpool "github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool"
+	tenantwatcher "github.com/pigeatgarlic/goedf/chassis/gateway/tenant-watcher"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
 
-	eventpusher "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/pusher"
-	eventquerier "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/querier"
+	eventpusher "github.com/pigeatgarlic/goedf/chassis/util/event/pusher"
+	eventquerier "github.com/pigeatgarlic/goedf/chassis/util/event/querier"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/provider/kafka"
+	"github.com/pigeatgarlic/goedf/chassis/util/event/provider/kafka"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
 )
 
 type Gateway struct {

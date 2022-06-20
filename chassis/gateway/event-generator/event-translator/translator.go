@@ -3,10 +3,10 @@ package eventtranslator
 import (
 	"math/rand"
 
-	registrator "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/module/registrator"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/request"
+	registrator "github.com/pigeatgarlic/goedf/chassis/gateway/module/registrator"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/request-response/request"
 )
 
 type EventTranslator struct {

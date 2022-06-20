@@ -1,18 +1,18 @@
 package main
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice"
-	// "github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/middleware"
-	// "github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/endpoint"
-	// "github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	eslogger "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger/es"
+	"github.com/pigeatgarlic/goedf/chassis/microservice"
+	// "github.com/pigeatgarlic/goedf/chassis/microservice/middleware"
+	// "github.com/pigeatgarlic/goedf/chassis/microservice/endpoint"
+	// "github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	eslogger "github.com/pigeatgarlic/goedf/chassis/util/logger/es"
 )
 
 func main() {
-	logconf,_ :=config.GetESlogConfig(); 
+	logconf, _ := config.GetESlogConfig()
 
-	log,err :=	eslogger.InitLogger(logconf);
+	log, err := eslogger.InitLogger(logconf)
 	if err != nil {
 		log.Fatal(err.Error())
 	}

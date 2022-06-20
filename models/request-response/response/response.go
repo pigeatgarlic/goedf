@@ -1,8 +1,8 @@
 package response
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/protoc"
 	proto "github.com/golang/protobuf/proto"
+	"github.com/pigeatgarlic/goedf/models/request-response/protoc"
 )
 
 type UserResponse struct {

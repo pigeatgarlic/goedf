@@ -1,4 +1,4 @@
-module github.com/pigeatgarlic/ideacrawler/microservice
+module github.com/pigeatgarlic/goedf
 
 go 1.18
 

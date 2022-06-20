@@ -3,29 +3,28 @@ package instruction
 import (
 	"fmt"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
-
 
 type InstructionSet struct {
 	ID   int
 	Name string
-	Tags  map[string]string
+	Tags map[string]string
 
 	instructions map[string]instruction
 }
 
-func InitInstruction(name string, tags map[string]string) *InstructionSet{
+func InitInstruction(name string, tags map[string]string) *InstructionSet {
 	return &InstructionSet{
-		Name: name,
-		Tags: tags,
+		Name:         name,
+		Tags:         tags,
 		instructions: make(map[string]instruction),
 	}
 }
 
 type instruction func(*event.Event) error
 
-type Instruction func(prev *event.Result, current *event.Result, EventID int, Headers map[string]string) (error)
+type Instruction func(prev *event.Result, current *event.Result, EventID int, Headers map[string]string) error
 
 func (service *InstructionSet) DescribeInstruction(key string, handler Instruction) *InstructionSet {
 	service.instructions[key] = func(processing_event *event.Event) error {

@@ -1,8 +1,8 @@
 package endpoint
 
 import (
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
 
 type Endpoint struct {
@@ -10,10 +10,10 @@ type Endpoint struct {
 	Name string
 	Tags map[string]string
 
-	handler EndpointFunction
+	handler         EndpointFunction
 	instructionSets map[string]*instruction.InstructionSet
 
-	steps   map[int]step
+	steps map[int]step
 }
 
 type step struct {
@@ -23,14 +23,14 @@ type step struct {
 
 type EndpointFunction func(event *event.Event) error
 
-func InitEndpoint(name string, 
-				  tag map[string]string,
-				  instructions map[string]*instruction.InstructionSet) *Endpoint {
+func InitEndpoint(name string,
+	tag map[string]string,
+	instructions map[string]*instruction.InstructionSet) *Endpoint {
 	return &Endpoint{
-		Name: name,
-		Tags: tag,
+		Name:            name,
+		Tags:            tag,
 		instructionSets: instructions,
-		steps: make(map[int]step),
+		steps:           make(map[int]step),
 	}
 }
 

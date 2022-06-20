@@ -3,9 +3,9 @@ package throw
 import (
 	"fmt"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/microservice/instruction"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
+	"github.com/pigeatgarlic/goedf/chassis/microservice/instruction"
+	"github.com/pigeatgarlic/goedf/chassis/util/logger"
+	"github.com/pigeatgarlic/goedf/models/event"
 )
 
 const (
@@ -21,7 +21,7 @@ func InitThowInstructionSet(log logger.Logger) *instruction.InstructionSet {
 		ID int,
 		Headers map[string]string) error {
 		if prev.Error != "" {
-			log.Warning("Handled thrown error from previous action: "+ prev.Error)
+			log.Warning("Handled thrown error from previous action: " + prev.Error)
 			current.Data = make(map[string]string)
 			return fmt.Errorf(prev.Error)
 		}

@@ -3,9 +3,9 @@ package broadcast
 import (
 	"testing"
 
-	redispubsub "github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/broadcast/redis"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger/es"
+	redispubsub "github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/broadcast/redis"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	eslogger "github.com/pigeatgarlic/goedf/chassis/util/logger/es"
 )
 
 func TestRedisRouter(t *testing.T) {

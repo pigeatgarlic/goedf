@@ -3,11 +3,11 @@ package tenantpool
 import (
 	"testing"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/gateway/tenant-pool/tenant"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger/es"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/request-response/response"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/user"
+	"github.com/pigeatgarlic/goedf/chassis/gateway/tenant-pool/tenant"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	eslogger "github.com/pigeatgarlic/goedf/chassis/util/logger/es"
+	"github.com/pigeatgarlic/goedf/models/request-response/response"
+	"github.com/pigeatgarlic/goedf/models/user"
 )
 
 func TestSingleTenantPool(t *testing.T) {

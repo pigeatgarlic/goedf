@@ -6,12 +6,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/event/provider/kafka"
+	"github.com/pigeatgarlic/goedf/chassis/util/event/provider/kafka"
 
-	"github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/config"
-	eslogger "github.com/pigeatgarlic/ideacrawler/microservice/chassis/util/logger/es"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/event"
-	"github.com/pigeatgarlic/ideacrawler/microservice/models/microservice"
+	"github.com/pigeatgarlic/goedf/chassis/util/config"
+	eslogger "github.com/pigeatgarlic/goedf/chassis/util/logger/es"
+	"github.com/pigeatgarlic/goedf/models/event"
+	"github.com/pigeatgarlic/goedf/models/microservice"
 )
 
 func TestKafkaMQ(t *testing.T) {
@@ -21,13 +21,13 @@ func TestKafkaMQ(t *testing.T) {
 	}()
 
 	conf := &config.ESLogConfig{
-		ESurl: "http://elasticsearch-1653540188.elasticstack.svc.cluster.local:9200",
+		ESurl:        "http://elasticsearch-1653540188.elasticstack.svc.cluster.local:9200",
 		WarningIndex: "testwarning",
-		InforIndex: "testinfor",
-		ErrorIndex: "testerror",
-		HostName: "unittest",
-		StdLog: "true",
-		Namespace: "unittest",
+		InforIndex:   "testinfor",
+		ErrorIndex:   "testerror",
+		HostName:     "unittest",
+		StdLog:       "true",
+		Namespace:    "unittest",
 	}
 
 	var err error
@@ -51,46 +51,42 @@ func TestKafkaMQ(t *testing.T) {
 		return
 	}
 
-
 	querier.ConfigureTopic(microservice.MicroserviceListenerConfig{
-		ClientID: 0,
+		ClientID:       0,
 		MicroserviceID: 0,
-		Resource: "unit",
-		Namespace: "test",
+		Resource:       "unit",
+		Namespace:      "test",
 	})
 
 	pusher.ConfigTopic([]microservice.MicroserviceListenerConfig{microservice.MicroserviceListenerConfig{
-		ClientID: 0,
+		ClientID:       0,
 		MicroserviceID: 0,
-		Resource: "unit",
-		Namespace: "test",
+		Resource:       "unit",
+		Namespace:      "test",
 	}})
 
-
-
-
 	id := int(time.Now().UnixNano())
-	log.Infor(fmt.Sprintf("Initialize test with event ID %d",id))
+	log.Infor(fmt.Sprintf("Initialize test with event ID %d", id))
 	eve := event.Event{
 		ID:      id,
 		Headers: map[string]string{"test": "true"},
 		Actions: []event.Action{event.Action{
-				ID:0,
+			ID: 0,
 
-				Prev: 0,
-				Next: 0,
+			Prev: 0,
+			Next: 0,
 
-				Service: 0,
-				Endpoint: 0,
+			Service:  0,
+			Endpoint: 0,
 
-				Done: true,
-				SignedAuthority: make([]string, 0),
+			Done:            true,
+			SignedAuthority: make([]string, 0),
 
-				Result: event.Result{
-					Data: map[string]string{},
-					Error: "",
-				},
+			Result: event.Result{
+				Data:  map[string]string{},
+				Error: "",
 			},
+		},
 		},
 	}
 
@@ -109,7 +105,7 @@ func TestKafkaMQ(t *testing.T) {
 				return
 			}
 			if result.ID == eve.ID {
-				log.Infor(fmt.Sprintf("Test case match event ID %d with result event ID %d",result.ID,eve.ID));
+				log.Infor(fmt.Sprintf("Test case match event ID %d with result event ID %d", result.ID, eve.ID))
 				doneChan <- true
 			}
 		}
