@@ -2,7 +2,7 @@ name: Source
 on:
   push:
     branches:
-      - "main"
+      - "master"
   workflow_dispatch:
 jobs:
   prepare-source-image:
