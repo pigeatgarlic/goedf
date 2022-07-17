@@ -18,4 +18,4 @@ RUN dotnet tool restore
 RUN dotnet build
 
 RUN chmod +x entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/src/entrypoint.sh"]
