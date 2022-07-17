@@ -19,8 +19,8 @@ jobs:
     - name: build source image
       run : |
         docker login -u ${{ secrets.DOCKER_REPO_USER }} -p ${{ secrets.DOCKER_REPO_PASSWORD }} workstation.thinkmay.net
-        docker build sidecar/auth -t workstation.thinkmay.net/mount2web:${{ steps.date.outputs.date }}
-        docker tag workstation.thinkmay.net/mount2web:${{ steps.date.outputs.date }} workstation.thinkmay.net/mount2web:latest
+        docker build sidecar/auth -t workstation.thinkmay.net/auth:${{ steps.date.outputs.date }}
+        docker tag workstation.thinkmay.net/auth:${{ steps.date.outputs.date }} workstation.thinkmay.net/auth:latest
 
-        docker push workstation.thinkmay.net/mount2web:${{ steps.date.outputs.date }}
-        docker push workstation.thinkmay.net/mount2web:latest
+        docker push workstation.thinkmay.net/auth:${{ steps.date.outputs.date }}
+        docker push workstation.thinkmay.net/auth:latest
