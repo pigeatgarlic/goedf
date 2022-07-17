@@ -10,11 +10,6 @@ service StreamService {
   rpc StreamRequest(stream UserRequest) returns (stream UserResponse);
 }
 
-service HelperService {
-  rpc HelperRequest(UserRequest) returns (UserResponse);
-}
-
-
 message UserResponse { 
     int64 id = 1;
 
